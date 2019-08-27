@@ -1,0 +1,21 @@
+//
+// Uber, Inc. (c) 2019
+//
+
+syntax = "proto3";
+
+package atg.stackbtest.proto; // Required to generate valid code.
+
+option csharp_namespace = "Atg.Stackbtest.Proto";
+option go_package = "protopb";
+option java_multiple_files = true;
+option java_outer_classname = "BProto";
+option java_package = "com.atg.stackbtest.proto";
+option objc_class_prefix = "AHP";
+option php_namespace = "Atg\\Stackbtest\\Proto";
+
+import "proto/a.proto";
+
+message B {
+  A a = 1;
+}

@@ -61,3 +61,13 @@ pip_repository(
     python_interpreter = "python3",
     requirements = "@grpc_test_repo//:requirements.txt",
 )
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_pull")
+
+
+container_pull(
+  name = "ubuntu_py3",
+  registry = "161262502093.dkr.ecr.us-east-1.amazonaws.com",
+  repository = "avmaps-freshness",
+  digest = "sha256:3d9a564b2a98f2cee45b29dfcfb8791ca62c772b33e0efe23c49e79926e5819c",
+)

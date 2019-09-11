@@ -1,6 +1,12 @@
 load("@io_bazel_rules_docker//python:image.bzl", "py_image")
 load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
-load("@io_bazel_rules_docker//container:push.bzl", "container_push")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push", "container_image")
+
+container_image(
+  name = "ubuntu_py3_base",
+  base = "@ubuntu_py3//image",
+  ports = ["50051"],
+)
 
 py_binary(
   name = "sample",
@@ -9,8 +15,8 @@ py_binary(
       "@local_py3_deps//grpcio",
   ],
   # if python_version is changed to PY2, there is a cython error.
-  # python_version = "PY3",
-  python_version = "PY2",
+  python_version = "PY3",
+  # python_version = "PY2",
 )
 
 py_binary(
@@ -26,6 +32,7 @@ py_binary(
 
 py_image(
   name = "sample_image",
+  base = ":ubuntu_py3_base",
   srcs = ["sample.py"],
   deps = [
     "@local_deps//grpcio",
@@ -36,6 +43,7 @@ py_image(
 py3_image(
   name = "sample_py3_image",
   srcs = ["sample.py"],
+  base = ":ubuntu_py3_base",
   deps = [
     "@local_py3_deps//grpcio",
   ],
